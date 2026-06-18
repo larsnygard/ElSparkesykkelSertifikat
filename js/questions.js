@@ -830,6 +830,16 @@ function nextId(questions) {
   return Math.max(...questions.map(q => q.id)) + 1;
 }
 
+/** Fisher-Yates shuffle – jevnt fordelt tilfeldig rekkefølge */
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 /** Trekk tilfeldig utvalg av spørsmål fra forskjellige kategorier */
 function pickRandomQuestions(questions, count = 15) {
   // Sørg for at vi dekker alle kategorier om mulig
@@ -842,22 +852,22 @@ function pickRandomQuestions(questions, count = 15) {
 
   // Ta minst 1 fra hver kategori
   categories.forEach(c => {
-    if (byCategory[c].length > 0) {
-      const q = byCategory[c][Math.floor(Math.random() * byCategory[c].length)];
-      if (!used.has(q.id)) { picked.push(q); used.add(q.id); }
+    const pool = shuffleArray(byCategory[c]);
+    if (pool.length > 0 && !used.has(pool[0].id)) {
+      picked.push(pool[0]);
+      used.add(pool[0].id);
     }
   });
 
   // Fyll resten tilfeldig
-  const remaining = questions.filter(q => !used.has(q.id));
-  const shuffled = remaining.sort(() => Math.random() - 0.5);
-  for (const q of shuffled) {
+  const remaining = shuffleArray(questions.filter(q => !used.has(q.id)));
+  for (const q of remaining) {
     if (picked.length >= count) break;
     picked.push(q);
   }
 
   // Bland den endelige listen
-  return picked.sort(() => Math.random() - 0.5).slice(0, count);
+  return shuffleArray(picked).slice(0, count);
 }
 
 const CATEGORY_LABELS = {

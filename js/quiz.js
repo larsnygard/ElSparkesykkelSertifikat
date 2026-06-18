@@ -86,7 +86,8 @@ function initRegistration() {
       return;
     }
     state.candidateName = name;
-    const count = parseInt(countSel ? countSel.value : QUESTIONS_PER_TEST, 10) || QUESTIONS_PER_TEST;
+    const parsed = parseInt(countSel ? countSel.value : String(QUESTIONS_PER_TEST), 10);
+    const count  = Number.isNaN(parsed) ? QUESTIONS_PER_TEST : parsed;
     startQuiz(count);
   });
 }

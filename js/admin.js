@@ -71,17 +71,25 @@ function updateStats() {
 }
 
 /* ── Modal opne/lukk ───────────────────────────────────────────────────── */
+let _lastFocusedElement = null;
+
 function openAddModal() {
   editingId = null;
+  _lastFocusedElement = document.activeElement;
   resetModalForm();
   document.getElementById('modal-title').textContent = '➕ Legg til spørsmål';
-  document.getElementById('question-modal').classList.remove('hidden');
+  const modal = document.getElementById('question-modal');
+  modal.classList.remove('hidden');
+  // Move focus inside modal
+  const firstFocusable = modal.querySelector('button, textarea, input, select');
+  if (firstFocusable) firstFocusable.focus();
 }
 
 function openEditModal(id) {
   const q = adminQuestions.find(x => x.id === id);
   if (!q) return;
   editingId = id;
+  _lastFocusedElement = document.activeElement;
 
   document.getElementById('modal-title').textContent = '✏️ Rediger spørsmål';
   document.getElementById('q-form-text').value     = q.text;
@@ -113,13 +121,22 @@ function openEditModal(id) {
     }
   }
 
-  document.getElementById('question-modal').classList.remove('hidden');
+  const modal = document.getElementById('question-modal');
+  modal.classList.remove('hidden');
+  // Move focus inside modal
+  const firstFocusable = modal.querySelector('button, textarea, input, select');
+  if (firstFocusable) firstFocusable.focus();
 }
 
 function closeModal() {
   document.getElementById('question-modal').classList.add('hidden');
   resetModalForm();
   editingId = null;
+  // Return focus to triggering element
+  if (_lastFocusedElement) {
+    _lastFocusedElement.focus();
+    _lastFocusedElement = null;
+  }
 }
 
 function resetModalForm() {
@@ -346,19 +363,46 @@ function attachEventListeners() {
     if (e.target === document.getElementById('question-modal')) closeModal();
   });
 
-  // Tastatur: Escape lukker modal
+  // Tastatur: Escape lukker modal + focus trap
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeModal();
+    const modal = document.getElementById('question-modal');
+    const isOpen = modal && !modal.classList.contains('hidden');
+
+    if (e.key === 'Escape' && isOpen) {
+      closeModal();
+      return;
+    }
+
+    // Focus trap: keep Tab within open modal
+    if (e.key === 'Tab' && isOpen) {
+      const focusable = Array.from(
+        modal.querySelectorAll('button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')
+      ).filter(el => !el.closest('.hidden'));
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
   });
 
   // Bildeopplasting
   setupImageUpload();
 
-  // Mobil nav
+  // Mobil nav + aria-expanded
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks  = document.querySelector('.nav-links');
   if (navToggle && navLinks) {
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navToggle.addEventListener('click', () => {
+      const expanded = navLinks.classList.contains('open');
+      navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(!expanded));
+    });
   }
 }
 

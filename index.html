@@ -302,6 +302,16 @@
   document.getElementById('btn-go-registration2')?.addEventListener('click', initRegistration);
   document.getElementById('btn-retry2')?.addEventListener('click', initRegistration);
 
+  // aria-expanded toggle for mobil-nav
+  const _navToggle = document.querySelector('.nav-toggle');
+  const _navLinks  = document.querySelector('.nav-links');
+  if (_navToggle && _navLinks) {
+    _navToggle.addEventListener('click', () => {
+      const expanded = _navLinks.classList.contains('open');
+      _navToggle.setAttribute('aria-expanded', String(!expanded));
+    });
+  }
+
   // Timer
   let timerInterval = null;
   function startTimer() {
