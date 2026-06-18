@@ -15,7 +15,7 @@
     <span class="logo-icon">🛴</span>
     <span>Elsparkesykkelprøven</span>
   </a>
-  <button class="nav-toggle" aria-label="Meny">☰</button>
+  <button class="nav-toggle" aria-label="Meny" aria-expanded="false">☰</button>
   <ul class="nav-links">
     <li><a href="index.html">🏠 Hjem</a></li>
     <li><a href="pensum.html" class="active">📚 Pensum</a></li>
@@ -497,9 +497,13 @@
 </footer>
 
 <script>
-  // Mobil-navigasjon
-  document.querySelector('.nav-toggle').addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('open');
+  // Mobil-navigasjon med aria-expanded
+  const _navBtn   = document.querySelector('.nav-toggle');
+  const _navMenu  = document.querySelector('.nav-links');
+  _navBtn.addEventListener('click', () => {
+    const expanded = _navMenu.classList.contains('open');
+    _navMenu.classList.toggle('open');
+    _navBtn.setAttribute('aria-expanded', String(!expanded));
   });
 </script>
 
