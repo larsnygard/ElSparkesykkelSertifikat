@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elsparkesykkel Sertifikat – Norsk Elsparkesykkelprøve</title>
+  <meta name="description" content="Ta førerprøven for elsparkesykkel! Lær trafikkreglene og bestå prøven for å få ditt eget sertifikat.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── Navigasjon ──────────────────────────────────────────────────── -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-icon">🛴</span>
+    <span>Elsparkesykkelprøven</span>
+  </a>
+  <button class="nav-toggle" aria-label="Meny" aria-expanded="false">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">🏠 Hjem</a></li>
+    <li><a href="pensum.html">📚 Pensum</a></li>
+    <li><a href="admin.html">⚙️ Administrer spørsmål</a></li>
+  </ul>
+</nav>
+
+<!-- ── Toast-container ────────────────────────────────────────────── -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     VIEW: HJEM
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="view-home" class="view active">
+
+  <div class="hero">
+    <span class="hero-icon">🛴</span>
+    <h1>Norsk Elsparkesykkelprøve</h1>
+    <p>Ta din offisielle prøve og vis at du kan kjøre trygt! For deg som er 12 år eller eldre.</p>
+    <div class="btn-group" style="justify-content:center;">
+      <button id="btn-go-registration" class="btn btn-secondary btn-lg">
+        🎯 Start prøven
+      </button>
+      <a href="pensum.html" class="btn btn-outline btn-lg" style="background:rgba(255,255,255,0.15);color:#fff;border-color:rgba(255,255,255,0.6);">
+        📚 Les pensum først
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Info-kort -->
+    <div class="card-grid" style="margin-top:2rem;">
+      <div class="feature-card blue">
+        <span class="feature-icon">📋</span>
+        <h3>15 tilfeldig spørsmål</h3>
+        <p class="text-muted">Spørsmålene trekkes tilfeldig fra vår spørsmålsbank på 30+ spørsmål.</p>
+      </div>
+      <div class="feature-card red">
+        <span class="feature-icon">✅</span>
+        <h3>80 % for å bestå</h3>
+        <p class="text-muted">Du trenger å svare riktig på minst 12 av 15 spørsmål for å bestå prøven.</p>
+      </div>
+      <div class="feature-card green">
+        <span class="feature-icon">🏆</span>
+        <h3>Offisielt sertifikat</h3>
+        <p class="text-muted">Bestå prøven og last ned ditt personlige sertifikat med bilde og navn!</p>
+      </div>
+    </div>
+
+    <!-- Hva dekker prøven -->
+    <div class="card card--accent" style="margin-top:2rem;">
+      <h2 class="section-title">📖 Hva dekker prøven?</h2>
+      <div class="card-grid" style="margin:1rem 0 0;">
+        <div>
+          <h4>⚖️ Regler og lovverk</h4>
+          <ul style="padding-left:1.25rem;margin-top:0.5rem;color:#555;">
+            <li>Aldersgrense (12 år)</li>
+            <li>Hastighetsgrense (20 km/t)</li>
+            <li>Promillegrense (0,2 ‰)</li>
+            <li>Krav til utstyr</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🚦 Ferdsel i trafikken</h4>
+          <ul style="padding-left:1.25rem;margin-top:0.5rem;color:#555;">
+            <li>Riktig plassering på vei</li>
+            <li>Vikeplikt og gangfelt</li>
+            <li>Trafikklys og skilt</li>
+            <li>Rundkjøring</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🛡️ Sikkerhet</h4>
+          <ul style="padding-left:1.25rem;margin-top:0.5rem;color:#555;">
+            <li>Lys og refleks</li>
+            <li>Parkering</li>
+            <li>Nødsituasjoner</li>
+            <li>Teknisk kontroll</li>
+          </ul>
+        </div>
+        <div>
+          <h4>🚧 Trafikktegn</h4>
+          <ul style="padding-left:1.25rem;margin-top:0.5rem;color:#555;">
+            <li>Vikeplikt- og stoppskilt</li>
+            <li>Sykkelvei og gangvei</li>
+            <li>Forbudt for sykler</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tips -->
+    <div class="info-box">
+      💡 <strong>Tips:</strong> Les gjennom <a href="pensum.html">pensumet</a> før du starter prøven. Det dekker alle reglene du trenger å vite om elsparkesykkel i Norge.
+    </div>
+
+    <div class="btn-group" style="margin-top:2rem;">
+      <button id="btn-go-registration2" class="btn btn-primary btn-lg">🎯 Start prøven nå</button>
+      <a href="pensum.html" class="btn btn-outline btn-lg">📚 Les pensum</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     VIEW: REGISTRERING
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="view-registration" class="view">
+  <div class="container">
+
+    <div class="card" style="max-width:520px;margin:0 auto;">
+      <h1 class="section-title" style="margin-bottom:1.5rem;">📝 Registrering</h1>
+      <p class="text-muted mb-3">Fyll inn opplysningene nedenfor for å starte prøven.</p>
+
+      <!-- Navn -->
+      <div class="form-group">
+        <label for="reg-name">👤 Ditt fulle navn <span style="color:var(--secondary)">*</span></label>
+        <input type="text" id="reg-name" placeholder="Ola Nordmann" autocomplete="name" maxlength="80">
+        <p class="form-hint">Navnet vil vises på sertifikatet ditt.</p>
+      </div>
+
+      <!-- Antall spørsmål -->
+      <div class="form-group">
+        <label for="reg-count">🔢 Antall spørsmål i prøven</label>
+        <select id="reg-count">
+          <option value="10">10 spørsmål (rask prøve)</option>
+          <option value="15" selected>15 spørsmål (standard prøve)</option>
+          <option value="20">20 spørsmål (utvidet prøve)</option>
+        </select>
+        <p class="form-hint">Du trenger 80 % riktige for å bestå.</p>
+      </div>
+
+      <!-- Bildeopplasting -->
+      <div class="form-group">
+        <label>📷 Last opp et bilde av deg selv <span style="color:var(--secondary)">*</span></label>
+        <div class="photo-upload-area" id="photo-upload-area">
+          <input type="file" id="reg-photo" accept="image/*" capture="user">
+          <div class="upload-placeholder" style="text-align:center;">
+            <div style="font-size:3rem;margin-bottom:0.5rem;">📸</div>
+            <p style="font-weight:600;color:var(--primary);">Klikk eller dra bilde hit</p>
+            <p class="text-muted" style="font-size:0.85rem;margin-top:0.25rem;">JPG, PNG – maks 5 MB</p>
+          </div>
+          <img id="photo-preview" class="photo-preview" alt="Forhåndsvisning" style="display:none;">
+        </div>
+        <p class="form-hint">Bildet vises på sertifikatet. Bruk gjerne et portrettbilde.</p>
+      </div>
+
+      <div class="info-box mt-2">
+        📋 <strong>Prøven inneholder:</strong> Tilfeldig utvalgte spørsmål om trafikkregler, ferdsel, sikkerhet og trafikktegn. Bestå med 80 % riktige for å få sertifikat.
+      </div>
+
+      <div class="btn-group mt-3">
+        <button class="btn btn-ghost btn-go-home">← Tilbake</button>
+        <button id="btn-start-quiz" class="btn btn-primary btn-lg">🚀 Start prøven!</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     VIEW: PRØVEN
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="view-quiz" class="view">
+  <div class="container" style="max-width:680px;">
+
+    <!-- Progresjonslinje -->
+    <div class="quiz-progress">
+      <div class="quiz-progress-header">
+        <span id="q-progress-text">Spørsmål 1 av 15</span>
+        <span class="quiz-timer" id="quiz-timer">⏱️ <span id="timer-text">0:00</span></span>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="q-progress-fill" style="width:6.67%"></div>
+      </div>
+    </div>
+
+    <!-- Spørsmålskort -->
+    <div class="question-card">
+      <div class="question-header">
+        <div class="question-number-badge" id="q-number-badge">1</div>
+        <div>
+          <div id="q-category-tag" class="question-category-tag">Regler</div>
+        </div>
+      </div>
+
+      <div class="question-body">
+        <!-- Bilde (om det finnes) -->
+        <div class="question-image-wrap" id="q-image-wrap" style="display:none;"></div>
+
+        <!-- Spørsmålstekst -->
+        <p class="question-text" id="q-text">Laster spørsmål…</p>
+
+        <!-- Svaralternativer -->
+        <ul class="options-list" id="q-options"></ul>
+
+        <!-- Forklaring -->
+        <div class="explanation-box" id="q-explanation"></div>
+
+        <!-- Neste-knapp -->
+        <div style="margin-top:1.5rem;text-align:right;">
+          <button id="btn-next" class="btn btn-primary" style="display:none;">
+            Neste spørsmål →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Avbryt -->
+    <div style="text-align:center;margin-top:1rem;">
+      <button class="btn btn-ghost btn-sm btn-go-home">✕ Avbryt prøven</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     VIEW: RESULTAT
+═══════════════════════════════════════════════════════════════════════ -->
+<div id="view-result" class="view">
+  <div class="container" style="max-width:760px;">
+
+    <!-- Score-kort -->
+    <div class="card text-center" style="padding:2.5rem;">
+      <div id="result-badge" class="result-badge pass">🏆</div>
+      <div id="result-score" class="score-display pass">12 / 15</div>
+      <div id="result-label" class="score-label">80 % riktige</div>
+      <div id="result-message" style="font-size:1.2rem;margin-top:1rem;"></div>
+
+      <div class="btn-group mt-3">
+        <button id="btn-retry" class="btn btn-primary">🔄 Ta prøven igjen</button>
+        <button class="btn btn-ghost btn-go-home">🏠 Til forsiden</button>
+      </div>
+    </div>
+
+    <!-- Sertifikat-seksjon -->
+    <div id="certificate-section" class="card" style="display:none;">
+      <h2 class="section-title">🏆 Ditt sertifikat</h2>
+      <p class="text-muted mb-2">Last ned sertifikatet ditt og del det med familie og venner!</p>
+
+      <div class="certificate-wrap">
+        <canvas id="certificate-canvas"></canvas>
+      </div>
+
+      <div class="btn-group mt-2">
+        <button id="btn-download-cert" class="btn btn-success btn-lg">
+          ⬇️ Last ned sertifikat (PNG)
+        </button>
+      </div>
+    </div>
+
+    <!-- Gjennomgang -->
+    <div class="card">
+      <h2 class="section-title">📋 Gjennomgang av svar</h2>
+      <div id="result-review"></div>
+
+      <div class="btn-group mt-3">
+        <a href="pensum.html" class="btn btn-outline">📚 Les pensum på nytt</a>
+        <button id="btn-retry2" class="btn btn-primary">🔄 Ta prøven igjen</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── Footer ────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <p>🛴 Norsk Elsparkesykkelprøve &nbsp;|&nbsp;
+     Basert på norsk trafikkregelverket &nbsp;|&nbsp;
+     <a href="pensum.html">Pensum</a> &nbsp;|&nbsp;
+     <a href="admin.html">Administrer spørsmål</a>
+  </p>
+  <p style="margin-top:0.4rem;font-size:0.8rem;opacity:0.7;">
+    Informasjonen er basert på Statens vegvesen og Lovdata. Alltid sjekk gjeldende regelverk.
+  </p>
+</footer>
+
+<!-- ── Skript ────────────────────────────────────────────────────── -->
+<script src="js/questions.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+  // Extra: knapp-alias og timer
+  document.getElementById('btn-go-registration2')?.addEventListener('click', initRegistration);
+  document.getElementById('btn-retry2')?.addEventListener('click', initRegistration);
+
+  // aria-expanded toggle for mobil-nav
+  const _navToggle = document.querySelector('.nav-toggle');
+  const _navLinks  = document.querySelector('.nav-links');
+  if (_navToggle && _navLinks) {
+    _navToggle.addEventListener('click', () => {
+      const expanded = _navLinks.classList.contains('open');
+      _navToggle.setAttribute('aria-expanded', String(!expanded));
+    });
+  }
+
+  // Timer
+  let timerInterval = null;
+  function startTimer() {
+    clearInterval(timerInterval);
+    const start = Date.now();
+    timerInterval = setInterval(() => {
+      const sec = Math.floor((Date.now() - start) / 1000);
+      const m   = Math.floor(sec / 60).toString().padStart(2,'0');
+      const s   = (sec % 60).toString().padStart(2,'0');
+      const el  = document.getElementById('timer-text');
+      if (el) el.textContent = `${m}:${s}`;
+    }, 1000);
+  }
+
+  // Overriv startQuiz for å starte timer
+  const _origStartQuiz = startQuiz;
+  window.startQuiz = function(count) {
+    startTimer();
+    _origStartQuiz(count);
+  };
+
+  // Stopp timer ved resultat
+  const _origFinishQuiz = finishQuiz;
+  window.finishQuiz = function() {
+    clearInterval(timerInterval);
+    _origFinishQuiz();
+  };
+</script>
+
+</body>
+</html>

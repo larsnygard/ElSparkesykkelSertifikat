@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrer spørsmål – Elsparkesykkel Sertifikat</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ── Navigasjon ────────────────────────────────────────────────── -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">
+    <span class="logo-icon">🛴</span>
+    <span>Elsparkesykkelprøven</span>
+  </a>
+  <button class="nav-toggle" aria-label="Meny" aria-expanded="false">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">🏠 Hjem</a></li>
+    <li><a href="pensum.html">📚 Pensum</a></li>
+    <li><a href="admin.html" class="active">⚙️ Administrer spørsmål</a></li>
+  </ul>
+</nav>
+
+<!-- ── Toast ──────────────────────────────────────────────────────── -->
+<div id="toast-container" class="toast-container"></div>
+
+<!-- ── Modal: Legg til / Rediger spørsmål ───────────────────────── -->
+<div id="question-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">➕ Legg til spørsmål</h2>
+      <button class="modal-close" id="btn-close-modal" aria-label="Lukk">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Spørsmålstekst -->
+      <div class="form-group">
+        <label for="q-form-text">❓ Spørsmålstekst <span style="color:var(--secondary)">*</span></label>
+        <textarea id="q-form-text" placeholder="Hva er aldersgrensen for å kjøre elsparkesykkel på offentlig vei?" rows="3"></textarea>
+      </div>
+
+      <!-- Kategori -->
+      <div class="form-group">
+        <label for="q-form-category">🏷️ Kategori</label>
+        <select id="q-form-category">
+          <option value="regler">⚖️ Regler og lovverk</option>
+          <option value="ferdsel">🚦 Ferdsel i trafikken</option>
+          <option value="sikkerhet">🛡️ Sikkerhet</option>
+          <option value="tegn">🚧 Trafikktegn</option>
+        </select>
+      </div>
+
+      <!-- Bilde -->
+      <div class="form-group">
+        <label for="q-form-image">🖼️ Bilde (valgfritt)</label>
+        <input type="file" id="q-form-image" accept="image/*">
+        <p class="form-hint">Last opp JPG, PNG eller GIF – maks 2 MB. Bildet vises under spørsmålet.</p>
+        <div id="modal-img-preview" class="img-preview-wrap"></div>
+        <button type="button" id="btn-remove-image" class="btn btn-ghost btn-sm mt-1" style="margin-top:0.5rem;">🗑️ Fjern bilde</button>
+      </div>
+
+      <!-- Svaralternativer -->
+      <div class="form-group">
+        <label>✅ Svaralternativer <span style="color:var(--secondary)">*</span></label>
+        <p class="form-hint" style="margin-bottom:0.75rem;">Fyll inn alternativene. Velg riktig svar med knappen til høyre.</p>
+
+        <div class="options-editor">
+
+          <div class="option-row">
+            <label for="q-opt-0" style="color:var(--primary);font-weight:800;">A</label>
+            <input type="text" id="q-opt-0" placeholder="Alternativ A">
+            <input type="radio" name="correct-answer" value="0" title="Riktig svar" checked>
+            <label for="" style="color:var(--success-dark);font-size:0.75rem;">✓ Riktig</label>
+          </div>
+
+          <div class="option-row">
+            <label for="q-opt-1" style="color:var(--primary);font-weight:800;">B</label>
+            <input type="text" id="q-opt-1" placeholder="Alternativ B">
+            <input type="radio" name="correct-answer" value="1" title="Riktig svar">
+            <label for="" style="color:var(--success-dark);font-size:0.75rem;">✓ Riktig</label>
+          </div>
+
+          <div class="option-row">
+            <label for="q-opt-2" style="color:var(--primary);font-weight:800;">C</label>
+            <input type="text" id="q-opt-2" placeholder="Alternativ C">
+            <input type="radio" name="correct-answer" value="2" title="Riktig svar">
+            <label for="" style="color:var(--success-dark);font-size:0.75rem;">✓ Riktig</label>
+          </div>
+
+          <div class="option-row">
+            <label for="q-opt-3" style="color:var(--primary);font-weight:800;">D</label>
+            <input type="text" id="q-opt-3" placeholder="Alternativ D (valgfritt)">
+            <input type="radio" name="correct-answer" value="3" title="Riktig svar">
+            <label for="" style="color:var(--success-dark);font-size:0.75rem;">✓ Riktig</label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Forklaring -->
+      <div class="form-group">
+        <label for="q-form-explanation">💬 Forklaring (vises etter svar)</label>
+        <textarea id="q-form-explanation" placeholder="Aldersgrensen er 12 år, og dette er fastsatt i…" rows="3"></textarea>
+        <p class="form-hint">Forklar hvorfor svaret er riktig. Vises til kandidaten etter de har svart.</p>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button id="btn-cancel-modal" class="btn btn-ghost">Avbryt</button>
+      <button id="btn-save-question" class="btn btn-primary">💾 Lagre spørsmål</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Hoveddel ──────────────────────────────────────────────────── -->
+<div class="hero" style="padding:2rem 1.5rem;">
+  <span style="font-size:2.5rem;display:block;margin-bottom:0.4rem;">⚙️</span>
+  <h1>Administrer spørsmålsbanken</h1>
+  <p>Legg til, rediger og slett spørsmål. Eksporter og importer som JSON.</p>
+</div>
+
+<div class="container--wide">
+
+  <!-- Toolbar -->
+  <div class="admin-toolbar">
+
+    <!-- Søk -->
+    <div style="flex:1;max-width:320px;">
+      <input type="text" id="search-input" placeholder="🔍 Søk i spørsmål…"
+             style="width:100%;padding:0.6rem 0.9rem;border:2px solid var(--border);border-radius:8px;font-size:0.95rem;">
+    </div>
+
+    <!-- Statistikk -->
+    <div id="admin-stats" class="admin-stats"></div>
+
+    <!-- Handlingsknapper -->
+    <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+      <button id="btn-add-question" class="btn btn-primary">➕ Legg til spørsmål</button>
+      <button id="btn-export" class="btn btn-outline">⬇️ Eksporter JSON</button>
+      <button id="btn-import" class="btn btn-outline">⬆️ Importer JSON</button>
+      <button id="btn-reset-defaults" class="btn btn-ghost btn-sm">↩️ Tilbakestill</button>
+    </div>
+
+  </div>
+
+  <!-- Informasjonsboks -->
+  <div class="info-box mb-2">
+    💡 <strong>Tips:</strong> Spørsmålene lagres i nettleserens lokale lagring (localStorage).
+    Eksporter som JSON for å ta sikkerhetskopi eller flytte spørsmål til en annen enhet.
+    Klikk <strong>Tilbakestill</strong> for å gå tilbake til de originale spørsmålene.
+  </div>
+
+  <!-- Spørsmålsliste -->
+  <div id="question-list">
+    <p class="text-muted text-center" style="padding:2rem;">Laster spørsmål…</p>
+  </div>
+
+  <!-- Tom bunntekst -->
+  <div style="text-align:center;margin-top:1.5rem;">
+    <button id="btn-add-question-bottom" class="btn btn-primary" onclick="openAddModal()">
+      ➕ Legg til nytt spørsmål
+    </button>
+  </div>
+
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <p>🛴 Norsk Elsparkesykkelprøve &nbsp;|&nbsp;
+     <a href="index.html">Forsiden</a> &nbsp;|&nbsp;
+     <a href="pensum.html">Pensum</a>
+  </p>
+</footer>
+
+<!-- ── Skript ─────────────────────────────────────────────────────── -->
+<script src="js/questions.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+</html>
