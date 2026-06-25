@@ -136,9 +136,11 @@ const SVG = {
   // Vikeplikt-skilt (trekant) – korrekt invertert trekant (topp flat, spiss ned)
   vikeplikt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
   <rect width="200" height="200" fill="#f0f0f0"/>
-  <!-- Invertert hvit trekant med rød kant -->
-  <polygon points="12,28 188,28 100,182" fill="white" stroke="#EF2B2D" stroke-width="8"/>
-  <text x="100" y="195" text-anchor="middle" font-size="12" fill="#333" font-weight="bold" font-family="Arial">VIKEPLIKT</text>
+  <!-- Rød ytre trekant -->
+  <polygon points="8,22 192,22 100,186" fill="#EF2B2D"/>
+  <!-- Hvit indre flate -->
+  <polygon points="20,28 180,28 100,174" fill="white"/>
+  <text x="100" y="198" text-anchor="middle" font-size="12" fill="#333" font-weight="bold" font-family="Arial">VIKEPLIKT</text>
 </svg>`,
 
   // STOPP-skilt
