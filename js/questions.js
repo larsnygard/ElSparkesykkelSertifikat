@@ -5,7 +5,7 @@
  *   id        – unik ID (nummer)
  *   category  – "regler" | "ferdsel" | "sikkerhet" | "tegn"
  *   text      – spørsmålstekst (norsk)
- *   image     – SVG-streng eller null
+ *   image     – SVG-streng, bildeadresse eller null
  *   options   – array med 4 svaralternativer
  *   correct   – indeks (0–3) for riktig svar
  *   explanation – forklaring vist etter svar
@@ -311,6 +311,14 @@ const SVG = {
   <text x="324" y="228" text-anchor="middle" font-size="11" fill="#333" font-family="Arial" font-weight="bold">4. VARSLE 113</text>
 </svg>`,
 
+};
+
+const OFFICIAL_SIGN_IMAGES = {
+  vikeplikt: 'https://lovdata.no/static/SF/sf-20051007-1219-202-01.gif',
+  stopp: 'https://lovdata.no/static/SF/sf-20051007-1219-204-01.gif',
+  sykkelveg: 'https://lovdata.no/static/SF/sf-20051007-1219-520-01.gif',
+  gangveg: 'https://lovdata.no/static/SF/sf-20051007-1219-518-01.gif',
+  forbudtSykkel: 'https://lovdata.no/static/SF/sf-20051007-1219-306-6-01.gif'
 };
 
 /* ── Spørsmålsbank (30 spørsmål) ──────────────────────────────────────── */
@@ -658,7 +666,7 @@ const DEFAULT_QUESTIONS = [
     id: 26,
     category: "tegn",
     text: "Hva betyr dette skiltet?",
-    image: SVG.vikeplikt,
+    image: OFFICIAL_SIGN_IMAGES.vikeplikt,
     options: [
       "Du har forkjørsrett",
       "Stopp og gi alle andre vikeplikt",
@@ -672,7 +680,7 @@ const DEFAULT_QUESTIONS = [
     id: 27,
     category: "tegn",
     text: "Hva betyr STOPP-skiltet?",
-    image: SVG.stopp,
+    image: OFFICIAL_SIGN_IMAGES.stopp,
     options: [
       "Senk farten litt",
       "Stoppe helt og gi all annen trafikk vikeplikt",
@@ -686,7 +694,7 @@ const DEFAULT_QUESTIONS = [
     id: 28,
     category: "tegn",
     text: "Hva betyr dette skiltet?",
-    image: SVG.sykkelVei,
+    image: OFFICIAL_SIGN_IMAGES.sykkelveg,
     options: [
       "Sykling er forbudt her",
       "Anbefalt sykkelvei – frivillig for sykler",
@@ -700,7 +708,7 @@ const DEFAULT_QUESTIONS = [
     id: 29,
     category: "tegn",
     text: "Hva betyr dette skiltet?",
-    image: SVG.gangVei,
+    image: OFFICIAL_SIGN_IMAGES.gangveg,
     options: [
       "Gangvei – kun for fotgjengere, elsparkesykkel er forbudt",
       "Gang- og sykkelvei",
@@ -714,7 +722,7 @@ const DEFAULT_QUESTIONS = [
     id: 30,
     category: "tegn",
     text: "Hva betyr dette skiltet?",
-    image: SVG.forbudtSykkel,
+    image: OFFICIAL_SIGN_IMAGES.forbudtSykkel,
     options: [
       "Sykling anbefales ikke her",
       "Forbudt for sykler og elsparkesykkel",
