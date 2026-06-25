@@ -158,6 +158,19 @@ body {
   margin: 0 auto 2rem;
 }
 
+.unofficial-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: 30px;
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 0.35rem 1.1rem;
+  margin: 0.75rem auto 1.25rem;
+  letter-spacing: 0.02em;
+}
+
 /* ── Cards ───────────────────────────────────── */
 .card {
   background: var(--card-bg);

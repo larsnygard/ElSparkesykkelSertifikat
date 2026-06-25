@@ -133,14 +133,14 @@ const SVG = {
   <text x="200" y="200" text-anchor="middle" font-size="12" fill="white" font-weight="bold" font-family="Arial">FRONTLYS + BAKLYS = PÅBUDT i mørket</text>
 </svg>`,
 
-  // Vikeplikt-skilt (trekant)
+  // Vikeplikt-skilt (trekant) – korrekt invertert trekant (topp flat, spiss ned)
   vikeplikt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
   <rect width="200" height="200" fill="#f0f0f0"/>
-  <!-- Bakgrunn hvit trekant -->
-  <polygon points="100,18 188,172 12,172" fill="white" stroke="#EF2B2D" stroke-width="8"/>
-  <!-- Indre rød trekant (opp-ned) -->
-  <polygon points="100,70 148,155 52,155" fill="#EF2B2D"/>
-  <text x="100" y="195" text-anchor="middle" font-size="12" fill="#333" font-weight="bold" font-family="Arial">VIKEPLIKT</text>
+  <!-- Rød ytre trekant -->
+  <polygon points="8,22 192,22 100,186" fill="#EF2B2D"/>
+  <!-- Hvit indre flate -->
+  <polygon points="20,28 180,28 100,174" fill="white"/>
+  <text x="100" y="198" text-anchor="middle" font-size="12" fill="#333" font-weight="bold" font-family="Arial">VIKEPLIKT</text>
 </svg>`,
 
   // STOPP-skilt
@@ -374,13 +374,13 @@ const DEFAULT_QUESTIONS = [
     text: "Er det lovpålagt å bruke hjelm når du kjører elsparkesykkel?",
     image: null,
     options: [
-      "Ja, hjelm er alltid lovpålagt",
-      "Nei, men hjelm anbefales sterkt",
-      "Kun for de under 15 år",
+      "Ja, hjelm er alltid lovpålagt for alle",
+      "Nei, hjelm er aldri lovpålagt",
+      "Ja, det er lovpålagt for barn og ungdom under 15 år",
       "Kun på veier med fartsgrense over 50 km/t"
     ],
-    correct: 1,
-    explanation: "Per i dag er hjelm ikke lovpålagt for elsparkesykkel i Norge, men det anbefales på det sterkeste! Hode er det mest sårbare ved fall – hjelm kan redde livet ditt."
+    correct: 2,
+    explanation: "Det er lovpålagt å bruke hjelm for barn og ungdom under 15 år når de kjører elsparkesykkel. For voksne over 15 år er hjelm ikke lovpålagt, men Statens vegvesen anbefaler sterkt at alle bruker hjelm – hode er det mest sårbare ved fall."
   },
   {
     id: 7,
@@ -662,11 +662,11 @@ const DEFAULT_QUESTIONS = [
     options: [
       "Du har forkjørsrett",
       "Stopp og gi alle andre vikeplikt",
-      "Du har vikeplikt for trafikk fra høyre",
+      "Du har vikeplikt for all trafikk i krysset du nærmer deg",
       "Forbudt å svinge"
     ],
     correct: 2,
-    explanation: "Det hvite, opp-ned trekantede skiltet med rød kant er vikepliktsskiltet. Det betyr at du har vikeplikt for all trafikk i det krysset du nærmer deg."
+    explanation: "Det hvite, inverterte trekantede skiltet med rød kant er vikepliktsskiltet (skilt 202). Det betyr at du har vikeplikt for all trafikk i det krysset du nærmer deg – du skal senke farten og gi fri passasje."
   },
   {
     id: 27,
